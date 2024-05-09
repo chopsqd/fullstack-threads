@@ -1,5 +1,8 @@
+const fs = require("fs");
 const express = require('express')
 const multer = require('multer')
+const {userController} = require("../controllers");
+const authenticateToken = require("../middleware/auth");
 const router = express.Router()
 
 // Указываем, где хранить файлы
@@ -12,8 +15,14 @@ const storage = multer.diskStorage({
 
 const uploads = multer({ storage })
 
-router.get('/register', (req, res) => {
-    res.send('register')
-})
+if (!fs.existsSync('uploads')) {
+    fs.mkdirSync('uploads')
+}
+
+router.post('/register', userController.register)
+router.post('/login', userController.login)
+router.get('/current', authenticateToken, userController.current)
+router.get('/users/:id', authenticateToken, userController.getById)
+router.put('/users/:id', authenticateToken, userController.update)
 
 module.exports = router
