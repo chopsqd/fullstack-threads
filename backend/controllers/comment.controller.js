@@ -14,7 +14,7 @@ const commentController = {
                 data: {postId, userId, content}
             })
 
-            res.status(200).json(comment)
+            res.status(201).json(comment)
         } catch (error) {
             console.error('Error in create:', error)
             res.status(500).json({message: 'Internal server error: ' + error})
@@ -25,7 +25,9 @@ const commentController = {
             const {id} = req.params
             const userId = req.user.userId
 
-            const comment = await prisma.comment.findUnique({where: {id}})
+            const comment = await prisma.comment.findUnique({
+                where: {id}
+            })
 
             if (!comment) {
                 return res.status(404).json({message: 'Комментарий не найден'})
@@ -35,7 +37,9 @@ const commentController = {
                 return res.status(403).json({message: 'Нет доступа'})
             }
 
-            await prisma.comment.delete({where: {id}})
+            await prisma.comment.delete({
+                where: {id}
+            })
 
             res.status(200).json(comment)
         } catch (error) {

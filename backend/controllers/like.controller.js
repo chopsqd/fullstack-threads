@@ -15,14 +15,14 @@ const likeController = {
             })
 
             if (existingLike) {
-                return res.status(400).json({message: 'Этот пост уже содержит лайк'})
+                return res.status(403).json({message: 'Этот пост уже содержит лайк'})
             }
 
             const like = await prisma.like.create({
                 data: {postId, userId}
             })
 
-            res.status(200).json(like)
+            res.status(201).json(like)
         } catch (error) {
             console.error('Error in like:', error)
             res.status(500).json({message: 'Internal server error: ' + error})
@@ -42,7 +42,7 @@ const likeController = {
             })
 
             if (!existingLike) {
-                return res.status(400).json({message: 'Нельзя поставить дизлайк'})
+                return res.status(403).json({message: 'Нельзя поставить дизлайк'})
             }
 
             const like = await prisma.like.deleteMany({

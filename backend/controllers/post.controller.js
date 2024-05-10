@@ -14,7 +14,7 @@ const postController = {
                 data: {content, authorId}
             })
 
-            res.status(200).json(post)
+            res.status(201).json(post)
         } catch (error) {
             console.error('Error in create:', error)
             res.status(500).json({message: 'Internal server error: ' + error})

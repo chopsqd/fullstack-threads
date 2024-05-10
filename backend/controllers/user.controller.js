@@ -18,7 +18,10 @@ const userController = {
                 return res.status(400).json({message: 'Пароль слишком короткий'})
             }
 
-            const candidate = await prisma.user.findUnique({where: {email}})
+            const candidate = await prisma.user.findUnique({
+                where: {email}
+            })
+
             if (candidate) {
                 return res.status(400).json({message: 'Пользователь уже существует'})
             }
@@ -39,7 +42,7 @@ const userController = {
                 }
             })
 
-            res.status(200).json(user)
+            res.status(201).json(user)
         } catch (error) {
             console.error('Error in register:', error)
             res.status(500).json({message: 'Internal server error: ' + error})
@@ -53,7 +56,10 @@ const userController = {
                 return res.status(400).json({message: 'Все поля обязательны'})
             }
 
-            const user = await prisma.user.findUnique({where: {email}})
+            const user = await prisma.user.findUnique({
+                where: {email}
+            })
+
             if (!user) {
                 return res.status(400).json({message: 'Пользователь не найден'})
             }
@@ -63,7 +69,10 @@ const userController = {
                 return res.status(400).json({message: 'Неверный логин или пароль'})
             }
 
-            const token = jwt.sign({userId: user.id}, process.env.SECRET_KEY)
+            const token = jwt.sign(
+                {userId: user.id},
+                process.env.SECRET_KEY
+            )
 
             res.status(200).json({token})
         } catch (error) {
@@ -121,7 +130,10 @@ const userController = {
                 return res.status(403).json({message: 'Нет доступа'})
             }
 
-            const candidate = await prisma.user.findFirst({where: {email}})
+            const candidate = await prisma.user.findFirst({
+                where: {email}
+            })
+            
             if (candidate && candidate.id !== id) {
                 return res.status(400).json({message: 'Почта уже используется'})
             }
