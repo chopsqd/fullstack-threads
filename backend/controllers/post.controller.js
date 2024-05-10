@@ -106,7 +106,7 @@ const postController = {
             console.error('Error in delete:', error)
             res.status(500).json({message: 'Internal server error: ' + error})
         }
-    },
+    }
 }
 
 module.exports = postController

@@ -1,7 +1,7 @@
 const fs = require("fs");
 const express = require('express')
 const multer = require('multer')
-const {userController, postController} = require("../controllers");
+const {userController, postController, commentController} = require("../controllers");
 const authenticateToken = require("../middleware/auth");
 const router = express.Router()
 
@@ -29,5 +29,8 @@ router.post('/posts', authenticateToken, postController.create)
 router.get('/posts', authenticateToken, postController.getAll)
 router.get('/posts/:id', authenticateToken, postController.getById)
 router.delete('/posts/:id', authenticateToken, postController.delete)
+
+router.post('/comments', authenticateToken, commentController.create)
+router.delete('/comments/:id', authenticateToken, commentController.delete)
 
 module.exports = router
