@@ -1,7 +1,7 @@
 const fs = require("fs");
 const express = require('express')
 const multer = require('multer')
-const {userController} = require("../controllers");
+const {userController, postController} = require("../controllers");
 const authenticateToken = require("../middleware/auth");
 const router = express.Router()
 
@@ -24,5 +24,10 @@ router.post('/login', userController.login)
 router.get('/current', authenticateToken, userController.current)
 router.get('/users/:id', authenticateToken, userController.getById)
 router.put('/users/:id', authenticateToken, userController.update)
+
+router.post('/posts', authenticateToken, postController.create)
+router.get('/posts', authenticateToken, postController.getAll)
+router.get('/posts/:id', authenticateToken, postController.getById)
+router.delete('/posts/:id', authenticateToken, postController.delete)
 
 module.exports = router
