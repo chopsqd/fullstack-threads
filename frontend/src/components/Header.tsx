@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {ThemeContext} from "./ThemeProvider";
+import {ThemeContext} from "../providers/ThemeProvider";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem} from "@nextui-org/react";
 import {FaRegMoon} from "react-icons/fa";
 import {LuSunMedium} from "react-icons/lu";

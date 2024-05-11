@@ -1,14 +1,14 @@
 import React from "react"
 import {createRoot} from "react-dom/client"
 import {Provider} from "react-redux"
-import App from "./App"
 import {store} from "./store/store"
 import {NextUIProvider} from "@nextui-org/react";
 import "./index.css"
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import ThemeProvider from "./components/ThemeProvider";
+import ThemeProvider from "./providers/ThemeProvider";
 import Layout from "./components/Layout";
 import {Auth, CurrentPost, Followers, Following, Posts, Profile} from "./pages";
+import AuthGuard from "./providers/AuthGuard";
 
 const container = document.getElementById("root")
 
@@ -53,7 +53,9 @@ if (container) {
             <Provider store={store}>
                 <NextUIProvider>
                     <ThemeProvider>
-                        <RouterProvider router={router}/>
+                        <AuthGuard>
+                            <RouterProvider router={router}/>
+                        </AuthGuard>
                     </ThemeProvider>
                 </NextUIProvider>
             </Provider>
