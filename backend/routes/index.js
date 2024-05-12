@@ -23,7 +23,7 @@ router.post('/register', userController.register)
 router.post('/login', userController.login)
 router.get('/current', authenticateToken, userController.current)
 router.get('/users/:id', authenticateToken, userController.getById)
-router.put('/users/:id', authenticateToken, userController.update)
+router.put('/users/:id', authenticateToken, uploads.single('avatar'), userController.update)
 
 router.post('/posts', authenticateToken, postController.create)
 router.get('/posts', authenticateToken, postController.getAll)
