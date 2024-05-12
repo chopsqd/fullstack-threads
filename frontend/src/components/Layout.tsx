@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import {Outlet, useNavigate} from "react-router-dom";
 import {useAppSelector} from "../store/hooks";
 import {selectIsAuthenticated, selectUser} from "../store/slices/user.slice";
+import Profile from "./Profile";
 
 const Layout = () => {
     const navigate = useNavigate()
@@ -26,6 +27,11 @@ const Layout = () => {
                 </div>
                 <div className="flex-1 p-4">
                     <Outlet/>
+                </div>
+                <div className={'flex-2 p-4'}>
+                    <div className={'flex flex-col gap-5'}>
+                        {!user && <Profile/>}
+                    </div>
                 </div>
             </Container>
         </>
