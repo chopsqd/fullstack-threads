@@ -83,7 +83,7 @@ const Card: React.FC<ICardProps> = ({
                     navigate('/')
                     break
                 case 'comment':
-                    await deleteComment(id).unwrap()
+                    await deleteComment(commentId).unwrap()
                     await refetchPosts()
                     break
                 default:
@@ -104,7 +104,7 @@ const Card: React.FC<ICardProps> = ({
                 ? await unlikePost(id).unwrap()
                 : await likePost({postId: id}).unwrap()
 
-            await refetchPosts()
+            await triggerGetPostById(id).unwrap()
         } catch (error) {
             if (hasErrorField(error)) {
                 setError(error.data.message)

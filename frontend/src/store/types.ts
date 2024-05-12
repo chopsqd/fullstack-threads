@@ -4,7 +4,7 @@ export interface IUser {
     password: string
     name?: string
     avatarUrl?: string
-    dateOfBirth?: Date
+    birthDate?: Date
     createdAt: Date
     updatedAt: Date
     bio?: string
